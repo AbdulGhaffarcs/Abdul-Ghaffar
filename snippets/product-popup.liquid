@@ -1,0 +1,70 @@
+{% comment %}
+  ============================================================
+  Snippet: product-popup
+  Description: Modal popup showing product details, variants,
+               and Add to Cart. Rendered once per page and
+               controlled entirely via product-popup.js.
+  Usage: {%- render 'product-popup' -%}
+  ============================================================
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'product-popup.css' | asset_url }}">
+
+<div
+  id="product-popup"
+  class="pp-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-labelledby="pp-title"
+>
+  <div class="pp-modal" role="document">
+
+    {% comment %} Close button {% endcomment %}
+    <button
+      class="pp-close"
+      id="pp-close-btn"
+      aria-label="Close popup"
+      type="button"
+    >
+      &times;
+    </button>
+
+    {% comment %} Modal body: image + details side by side {% endcomment %}
+    <div class="pp-body">
+
+      {% comment %} Left — product image {% endcomment %}
+      <div class="pp-img-wrap">
+        <img
+          id="pp-img"
+          class="pp-img"
+          src=""
+          alt=""
+        >
+      </div>
+
+      {% comment %} Right — product details {% endcomment %}
+      <div class="pp-details">
+
+        <h2 id="pp-title" class="pp-title"></h2>
+        <p  id="pp-price" class="pp-price"></p>
+        <p  id="pp-desc"  class="pp-desc"></p>
+
+        {% comment %} Variants injected dynamically by JS {% endcomment %}
+        <div id="pp-variants" class="pp-variants"></div>
+
+        {% comment %} Status messages {% endcomment %}
+        <div id="pp-error"   class="pp-msg pp-msg--error"   hidden></div>
+        <div id="pp-success" class="pp-msg pp-msg--success" hidden></div>
+
+        {% comment %} Add to Cart button {% endcomment %}
+        <button id="pp-atc-btn" class="pp-atc" type="button">
+          <span id="pp-atc-label">ADD TO CART</span>
+          <span class="pp-atc-arrow" aria-hidden="true"></span>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,125 @@
+/* ============================================================
+   Custom Product Grid — Styles
+   Section: custom-product-grid.liquid
+   ============================================================ */
+
+.cpg {
+  padding: 60px 52px;
+  background-color: #fff;
+}
+
+.cpg__inner {
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+.cpg__title {
+  font-family: 'Lustria', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #000;
+  margin: 0 0 28px;
+  line-height: 1.2;
+}
+
+.cpg__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.cpg__card {
+  cursor: pointer;
+  display: block;
+  outline: none;
+}
+
+.cpg__card:focus-visible .cpg__card-img-wrap {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.cpg__card-img-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+.cpg__card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.cpg__card:hover .cpg__card-img {
+  transform: scale(1.05);
+}
+
+.cpg__card-no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  color: #999;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8rem;
+}
+
+.cpg__card-plus {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  line-height: 1;
+  color: #000;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.cpg__card:hover .cpg__card-plus,
+.cpg__card-plus:hover {
+  background-color: #000;
+  color: #fff;
+  transform: scale(1.15) rotate(90deg);
+}
+
+@media (max-width: 900px) {
+  .cpg {
+    padding: 40px 16px;
+  }
+
+  .cpg__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .cpg__title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cpg__grid {
+    gap: 8px;
+  }
+
+  .cpg__card-plus {
+    width: 18px;
+    height: 18px;
+    font-size: 0.85rem;
+  }
+}

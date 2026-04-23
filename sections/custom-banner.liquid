@@ -1,0 +1,167 @@
+{% comment %}
+  ============================================================
+  Section: Custom Banner
+  Description: Hero banner with nav bar, illustration, and ticker
+  Author: Candidate Test — EcomExperts
+  ============================================================
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'custom-banner.css' | asset_url }}">
+
+<section class="cb" id="custom-banner-{{ section.id }}">
+
+  {% comment %} ── Navigation Bar ── {% endcomment %}
+  <div class="cb__nav">
+    <div class="cb__nav-logo">
+      {% if section.settings.logo != blank %}
+        <img
+          src="{{ section.settings.logo | img_url: '200x' }}"
+          alt="{{ section.settings.logo_alt | escape }}"
+          class="cb__nav-logo-img"
+        >
+      {% else %}
+        <span class="cb__nav-logo-text">{{ section.settings.store_name | default: shop.name | upcase }}</span>
+      {% endif %}
+    </div>
+
+    <p class="cb__nav-tagline">{{ section.settings.nav_tagline }}</p>
+
+    {% if section.settings.nav_btn_label != blank %}
+      <a href="{{ section.settings.nav_btn_url }}" class="cb__nav-btn">
+        {{ section.settings.nav_btn_label }}
+        <span class="cb__nav-btn-arrow" aria-hidden="true">&#8594;</span>
+      </a>
+    {% endif %}
+  </div>
+
+  {% comment %} ── Hero Area ── {% endcomment %}
+  <div class="cb__hero">
+
+    {% comment %} Background illustration (right side) {% endcomment %}
+    <div class="cb__hero-illustration" aria-hidden="true">
+      {% if section.settings.hero_image != blank %}
+        <img
+          src="{{ section.settings.hero_image | img_url: '1400x' }}"
+          alt=""
+          loading="eager"
+        >
+      {% endif %}
+    </div>
+
+    {% comment %} Text content (left side) {% endcomment %}
+    <div class="cb__hero-content">
+      <h1 class="cb__hero-heading">{{ section.settings.heading }}</h1>
+      {% if section.settings.description != blank %}
+        <p class="cb__hero-desc">{{ section.settings.description }}</p>
+      {% endif %}
+      {% if section.settings.btn_label != blank %}
+        <a href="{{ section.settings.btn_url }}" class="cb__hero-btn">
+          <span>{{ section.settings.btn_label }}</span>
+          <span class="cb__hero-btn-line" aria-hidden="true"></span>
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+
+  {% comment %} ── Ticker Bar ── {% endcomment %}
+  <div class="cb__ticker">
+    <p>{{ section.settings.ticker_text }}</p>
+  </div>
+
+</section>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "tag": "section",
+  "class": "custom-banner-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Navigation Bar"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_alt",
+      "label": "Logo Alt Text",
+      "default": "Store logo"
+    },
+    {
+      "type": "text",
+      "id": "store_name",
+      "label": "Store Name (shown if no logo)",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "text",
+      "id": "nav_tagline",
+      "label": "Nav Tagline",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "nav_btn_label",
+      "label": "Nav Button Label",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "nav_btn_url",
+      "label": "Nav Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Illustration / Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button Label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Ticker Bar"
+    },
+    {
+      "type": "text",
+      "id": "ticker_text",
+      "label": "Ticker Text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner"
+    }
+  ]
+}
+{% endschema %}

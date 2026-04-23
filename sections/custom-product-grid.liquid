@@ -1,0 +1,130 @@
+{% comment %}
+  ============================================================
+  Section: Custom Product Grid
+  Description: 3x2 product photo grid, each product selectable
+               from the Shopify customizer. Clicking a card
+               opens the product popup.
+  Author: Candidate Test — EcomExperts
+  ============================================================
+{% endcomment %}
+
+<link rel="stylesheet" href="{{ 'custom-product-grid.css' | asset_url }}">
+
+{% comment %} Render popup HTML (hidden by default) {% endcomment %}
+{%- render 'product-popup' -%}
+
+<section class="cpg" id="custom-grid-{{ section.id }}">
+  <div class="cpg__inner">
+
+    {% comment %} Section title {% endcomment %}
+    {% if section.settings.section_title != blank %}
+      <h2 class="cpg__title">{{ section.settings.section_title }}</h2>
+    {% endif %}
+
+    {% comment %} Product grid — 3 columns x 2 rows {% endcomment %}
+    <div class="cpg__grid">
+      {% for block in section.blocks %}
+        {%- assign product = block.settings.product -%}
+
+        {% if product != blank %}
+          <div
+            class="cpg__card"
+            data-product-handle="{{ product.handle }}"
+            role="button"
+            tabindex="0"
+            aria-label="Quick view {{ product.title }}"
+            {{ block.shopify_attributes }}
+          >
+            <div class="cpg__card-img-wrap">
+
+              {% comment %} Product image {% endcomment %}
+              {% if product.featured_image %}
+                <img
+                  src="{{ product.featured_image | img_url: '600x600', crop: 'center' }}"
+                  alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                  class="cpg__card-img"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
+              {% else %}
+                <div class="cpg__card-no-image">
+                  <span>No image</span>
+                </div>
+              {% endif %}
+
+              {% comment %} Plus circle button — triggers popup {% endcomment %}
+              <button
+                class="cpg__card-plus"
+                aria-label="Quick view {{ product.title }}"
+                tabindex="-1"
+              >
+                <span aria-hidden="true">+</span>
+              </button>
+
+            </div>
+          </div>
+
+        {% else %}
+
+          {% comment %} Empty placeholder block in customizer {% endcomment %}
+          <div class="cpg__card cpg__card--empty" {{ block.shopify_attributes }}>
+            <div class="cpg__card-img-wrap">
+              <div class="cpg__card-no-image">
+                <span>Select a product</span>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% comment %} Load popup JS deferred so it doesn't block render {% endcomment %}
+<script src="{{ 'product-popup.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Custom Product Grid",
+  "tag": "section",
+  "class": "custom-grid-section",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Tisso vison in the wild"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_item",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Grid",
+      "blocks": [
+        { "type": "product_item" },
+        { "type": "product_item" },
+        { "type": "product_item" },
+        { "type": "product_item" },
+        { "type": "product_item" },
+        { "type": "product_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}
